@@ -1,4 +1,4 @@
-# pipz-java
+# ciashop-java
 
 CIASHOP API integration in Java
 
