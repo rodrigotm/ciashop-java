@@ -1,11 +1,11 @@
 package com.simplesdental.ciashop.helpers.request;
 
 public class RequestAuth {
-	public String email = "";
-	public String token = "";
+	public String bearerToken = "";
+	public String subDomainAPI = "";
 
-	public RequestAuth(String email, String token) {
-		this.email = email;
-		this.token = token;
+	public RequestAuth(String bearerToken, String subDomainAPI) {
+		this.bearerToken = bearerToken;
+		this.subDomainAPI = subDomainAPI;
 	}
 }

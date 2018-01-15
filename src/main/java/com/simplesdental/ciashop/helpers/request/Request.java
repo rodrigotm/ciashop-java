@@ -3,7 +3,8 @@ package com.simplesdental.ciashop.helpers.request;
 import java.io.IOException;
 import java.util.concurrent.Future;
 
-import com.google.api.client.http.BasicAuthentication;
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpMethods;
@@ -15,26 +16,20 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 
 public class Request {
 	public static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-	public static final String API = "https://api.pipz.io";
-	public static final String API_OPEN = "https://app.pipz.io";
+	public static String SUB_DOMAIN = "";
+	public static String API = "https://" + SUB_DOMAIN + ".myciashop.com.br";
 
 	public static String createResourceUri(String resource) {
-		return createResourceUri(resource, false);
-	}
-
-	public static String createResourceUri(String resource, boolean openApi) {
-		if (!openApi) {
-			return path(getApiUri(), resource);
-		}
-		return path(getOpenApiUri(), resource);
+		return path(getApiUri(), resource);
 	}
 
 	public static String getApiUri() {
 		return API;
 	}
 
-	public static String getOpenApiUri() {
-		return API_OPEN;
+	public static String setSubDomainAPI(String subDomain) {
+		SUB_DOMAIN = subDomain;
+		return API;
 	}
 
 	public static Request openResource(String resource) throws IOException {
@@ -57,20 +52,11 @@ public class Request {
 		return new Request(resource);
 	}
 
-	public static Request resource(String resource, boolean openApi) throws IOException {
-		return new Request(resource, openApi);
-	}
-
 	private HttpRequest request;
 	private GenericUrl url;
 
 	private Request(String resource) throws IOException {
 		this.url = new GenericUrl(createResourceUri(resource));
-		this.request = HTTP_TRANSPORT.createRequestFactory().buildGetRequest(this.url);
-	}
-
-	private Request(String resource, boolean openApi) throws IOException {
-		this.url = new GenericUrl(createResourceUri(resource, openApi));
 		this.request = HTTP_TRANSPORT.createRequestFactory().buildGetRequest(this.url);
 	}
 
@@ -86,9 +72,17 @@ public class Request {
 		return this;
 	}
 
-	public Request auth(RequestAuth auth) throws IOException {
-		BasicAuthentication basicAuthentication = new BasicAuthentication(auth.email, auth.token);
-		basicAuthentication.initialize(this.request);
+	public Request auth(RequestAuth requestAuth) throws Exception {
+		if (StringUtils.isBlank(requestAuth.subDomainAPI)) {
+			throw new Exception("You need put your subDomain from API");
+		}
+
+		if (StringUtils.isBlank(requestAuth.bearerToken)) {
+			throw new Exception("You need put your bearerToken from API");
+		}
+
+		setSubDomainAPI(requestAuth.subDomainAPI);
+		this.request.getHeaders().setAuthorization(requestAuth.bearerToken);
 		return this;
 	}
 
