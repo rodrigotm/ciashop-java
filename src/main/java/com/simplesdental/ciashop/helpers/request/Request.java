@@ -1,6 +1,7 @@
 package com.simplesdental.ciashop.helpers.request;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.concurrent.Future;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,23 +14,18 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.MultipartContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.simplesdental.ciashop.helpers.Json;
+import com.simplesdental.ciashop.helpers.request.RequestContent;
 
 public class Request {
 	public static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-	public static String SUB_DOMAIN = "";
-	public static String API = "https://" + SUB_DOMAIN + ".myciashop.com.br";
-
+	
 	public static String createResourceUri(String resource) {
-		return path(getApiUri(), resource);
+		return path(getEndpoint(), resource);
 	}
 
-	public static String getApiUri() {
-		return API;
-	}
-
-	public static String setSubDomainAPI(String subDomain) {
-		SUB_DOMAIN = subDomain;
-		return API;
+	public static String getEndpoint() {
+		return CiashopCredentials.endpoint;
 	}
 
 	public static Request openResource(String resource) throws IOException {
@@ -58,10 +54,22 @@ public class Request {
 	private Request(String resource) throws IOException {
 		this.url = new GenericUrl(createResourceUri(resource));
 		this.request = HTTP_TRANSPORT.createRequestFactory().buildGetRequest(this.url);
+		auth(getToken());
 	}
 
 	public Request addParam(String key, Object value) throws IOException {
 		this.url.set(key, value);
+		return this;
+	}
+	
+	private String getToken() {
+		return CiashopCredentials.bearerToken;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Request addParamsFromObject(Object object) throws IOException {
+		HashMap<String, Object> hash = Json.fromJson(Json.toJson(object), HashMap.class);
+		hash.forEach((k,v) ->  this.url.set(k, v));
 		return this;
 	}
 
@@ -72,17 +80,8 @@ public class Request {
 		return this;
 	}
 
-	public Request auth(RequestAuth requestAuth) throws Exception {
-		if (StringUtils.isBlank(requestAuth.subDomainAPI)) {
-			throw new Exception("You need put your subDomain from API");
-		}
-
-		if (StringUtils.isBlank(requestAuth.bearerToken)) {
-			throw new Exception("You need put your bearerToken from API");
-		}
-
-		setSubDomainAPI(requestAuth.subDomainAPI);
-		this.request.getHeaders().setAuthorization(requestAuth.bearerToken);
+	public Request auth(String bearerToken) {
+		this.request.getHeaders().setAuthorization(bearerToken);
 		return this;
 	}
 

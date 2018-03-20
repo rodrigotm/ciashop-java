@@ -1,11 +1,12 @@
 package com.simplesdental.ciashop.models.enums;
 
-public enum CostumerTypeEnum {
-	PERSON("Person"), COMPANY("Company");
+public enum PackageEnum {
+
+	SYSTEM("system");
 
 	private final String value;
 
-	CostumerTypeEnum(String value) {
+	PackageEnum(String value) {
 		this.value = value;
 	}
 

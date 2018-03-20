@@ -1,9 +1,15 @@
 package com.simplesdental.ciashop.helpers.request;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.simplesdental.ciashop.helpers.Json;
+import com.simplesdental.ciashop.models.ContentError;
+
 public class RequestError extends Error {
+
 	private static final long serialVersionUID = 1L;
 
 	private String message = null;
+	private ContentError contentError = null;
 
 	public RequestError(int statusCode) {
 		if (statusCode == 400) {
@@ -23,8 +29,16 @@ public class RequestError extends Error {
 		}
 	}
 
+	public RequestError(JsonNode json) {
+		this.contentError = Json.fromJson(json, ContentError.class);
+	}
+
 	public RequestError(String message) {
 		this.message = message;
+	}
+
+	public ContentError getContentError() {
+		return this.contentError;
 	}
 
 	@Override
