@@ -26,6 +26,7 @@ public class MetaFieldResource {
 	 *            the MetaField object filled with required fields
 	 * @return Case success, the return will be the Response Object, else will throw RequestError.
 	 * @throws RequestError
+	 *             throw RequestError
 	 */
 	public static Response insert(MetaField metaField) throws RequestError {
 

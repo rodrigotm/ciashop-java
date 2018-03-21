@@ -27,6 +27,7 @@ public class OrdersResource {
 	 *            the Order object filled with required fields
 	 * @return Case success, the return will be the Response Object, else will throw RequestError.
 	 * @throws RequestError
+	 *             throw RequestError
 	 */
 	public static Response insert(Order order) throws RequestError {
 

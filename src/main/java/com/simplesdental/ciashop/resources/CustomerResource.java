@@ -29,13 +29,15 @@ public class CustomerResource {
 	 * 	&#64;code
 	 * 	CustomerFilter customerFilter = new CustomerFilter();
 	 * 	customerFilter.setDocumentID(12345678909);
-	 * 	List<Customer> customer = CustomerResource.list(customerFilter);
+	 * 	CustomerResource.list(customerFilter);
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * @param customerFilter
+	 *            the CustomerFilter object that you can fill fields for to filter
 	 * @return Case success, the return will be ArrayList of Customer, else will throw RequestError.
 	 * @throws RequestError
+	 *             throw RequestError
 	 */
 	public static List<Customer> list(CustomerFilter customerFilter) throws RequestError {
 		try {
