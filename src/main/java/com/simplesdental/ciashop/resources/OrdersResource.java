@@ -19,13 +19,6 @@ public class OrdersResource {
 
 	public final static String RESOURCE_V1 = "api/v1/orders";
 
-	/**
-	 *
-	 * @param reequestVariable
-	 * @param order
-	 * @return HttpResponse @throws
-	 * @throws IOException
-	 */
 	public static Response insert(Order order) throws RequestError {
 
 		try {
