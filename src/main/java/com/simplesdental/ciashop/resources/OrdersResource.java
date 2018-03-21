@@ -19,6 +19,15 @@ public class OrdersResource {
 
 	public final static String RESOURCE_V1 = "api/v1/orders";
 
+	/**
+	 *
+	 * Insert one Order.
+	 *
+	 * @param order
+	 *            the Order object filled with required fields
+	 * @return Case success, the return will be the Response Object, else will throw RequestError.
+	 * @throws RequestError
+	 */
 	public static Response insert(Order order) throws RequestError {
 
 		try {

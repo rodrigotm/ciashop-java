@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>com.github.rodrigotm</groupId>
    <artifactId>ciashop-java</artifactId>
-   <version>0.0.1-SNAPSHOT</version>
+   <version>0.0.1</version>
    <name>ciashop-java</name>
    <description>This is a simple lib for use Ciashop API</description>
    <url>https://github.com/rodrigotm/ciashop-java</url>

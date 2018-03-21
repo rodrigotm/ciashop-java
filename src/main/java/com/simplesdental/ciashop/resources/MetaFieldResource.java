@@ -2,6 +2,7 @@ package com.simplesdental.ciashop.resources;
 
 import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpResponseException;
 import com.simplesdental.ciashop.helpers.Json;
 import com.simplesdental.ciashop.helpers.request.Request;
 import com.simplesdental.ciashop.helpers.request.RequestError;
@@ -18,13 +19,15 @@ public class MetaFieldResource {
 	public final static String RESOURCE_V1 = "api/v1/metafields";
 
 	/**
-	 * Insert one metafield
+	 *
+	 * Insert one Metafield.
 	 *
 	 * @param metaField
-	 *            data to send
-	 * @return Response response
+	 *            the MetaField object filled with required fields
+	 * @return Case success, the return will be the Response Object, else will throw RequestError.
+	 * @throws RequestError
 	 */
-	public static Response insert(MetaField metaField) {
+	public static Response insert(MetaField metaField) throws RequestError {
 
 		try {
 			Request request = Request.resource(RESOURCE_V1).method(HttpMethods.POST).body(Json.toString(metaField));
@@ -34,9 +37,10 @@ public class MetaFieldResource {
 				return Json.fromJson(response.parseAsString(), Response.class);
 			}
 
-			throw new RequestError(response.parseAsString());
+			throw new RequestError(response.getStatusCode());
+		} catch (HttpResponseException e) {
+			throw new RequestError(Json.parse(e.getContent()));
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RequestError(e.getMessage());
 		}
 	}
