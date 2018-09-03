@@ -15,6 +15,7 @@ public class Order {
 	private Marketplace marketplace;
 	private String statusMsgCustomer;
 	private String statusMsgStore;
+	private Integer templateId;
 
 	public Billing getBilling() {
 		return billing;
@@ -56,6 +57,10 @@ public class Order {
 		return subTotal;
 	}
 
+	public Integer getTemplateId() {
+		return templateId;
+	}
+
 	public void setBilling(Billing billing) {
 		this.billing = billing;
 	}
@@ -94,6 +99,10 @@ public class Order {
 
 	public void setSubTotal(BigDecimal subTotal) {
 		this.subTotal = subTotal;
+	}
+
+	public void setTemplateId(Integer templateId) {
+		this.templateId = templateId;
 	}
 
 }

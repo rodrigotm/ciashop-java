@@ -35,6 +35,7 @@ public class Customer {
 	private String regionalDocumentId;
 	private String regionalDocumentState;
 	private String regionalDocumentType;
+	private Integer templateId;
 
 	public List<TemplateRegister> getAllowedLogin() {
 		return allowedLogin;
@@ -146,6 +147,10 @@ public class Customer {
 
 	public SocialMedia getSocialMedia() {
 		return socialMedia;
+	}
+
+	public Integer getTemplateId() {
+		return templateId;
 	}
 
 	public TemplateRegister getTemplateRegister() {
@@ -266,6 +271,10 @@ public class Customer {
 
 	public void setSocialMedia(SocialMedia socialMedia) {
 		this.socialMedia = socialMedia;
+	}
+
+	public void setTemplateId(Integer templateId) {
+		this.templateId = templateId;
 	}
 
 	public void setTemplateRegister(TemplateRegister templateRegister) {

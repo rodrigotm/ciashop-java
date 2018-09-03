@@ -3,6 +3,7 @@ package com.github.rodrigotm.ciashop.helpers.json;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.github.rodrigotm.ciashop.helpers.json.deserializers.EnumDeserializer;
@@ -17,6 +18,7 @@ public class JsonUtils {
 		module.addDeserializer(Enum.class, new EnumDeserializer());
 		module.addSerializer(Date.class, new DateSerializer());
 		mapper.registerModule(module);
+		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		return mapper;
 	}
 }
