@@ -28,9 +28,8 @@ public class Json {
 	}
 
 	public static <T> List<T> fromJsonList(String jsonString, Class<T> class1) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, class1);
-		return mapper.readValue(jsonString, type);
+		JavaType type = mapper().getTypeFactory().constructCollectionType(List.class, class1);
+		return mapper().readValue(jsonString, type);
 	}
 
 	// Ensures that there always is *a* object mapper
