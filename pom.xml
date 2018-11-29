@@ -3,7 +3,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>com.github.rodrigotm</groupId>
    <artifactId>ciashop-java</artifactId>
-   <version>1.0.6</version>
+   <version>1.1.0-SNAPSHOT</version>
    <name>ciashop-java</name>
    <description>This is a simple lib for use Ciashop API</description>
    <url>https://github.com/rodrigotm/ciashop-java</url>
@@ -96,7 +96,7 @@
       <dependency>
          <groupId>com.fasterxml.jackson.core</groupId>
          <artifactId>jackson-databind</artifactId>
-         <version>2.8.4</version>
+         <version>2.8.11.1</version>
       </dependency>
       <dependency>
          <groupId>org.apache.commons</groupId>
